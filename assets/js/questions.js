@@ -33,4 +33,13 @@ let questions = [
     choice4: "parentheses",
     answer: 3,
   },
+  {
+    question:
+      "A very useful tool used during development and debugging for printing content to the de debugger is:",
+    choice1: "JavaScript",
+    choice2: "terminal/bash",
+    choice3: "for loops",
+    choice4: "console.log",
+    answer: 4,
+  },
 ];
