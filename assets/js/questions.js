@@ -16,4 +16,12 @@ let questions = [
     choice4: "square brackets",
     answer: 2,
   },
+  {
+    question: "Arrays in JavaScript can be used to store _____.",
+    choice1: "numbers and strings",
+    choice2: "other arrays",
+    choice3: "booleans",
+    choice4: "all of the above",
+    answer: 4,
+  },
 ];
