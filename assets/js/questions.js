@@ -31,6 +31,6 @@ let questions = [
     choice2: "curly brackets",
     choice3: "quotes",
     choice4: "parentheses",
-    answer: 4,
+    answer: 3,
   },
 ];
