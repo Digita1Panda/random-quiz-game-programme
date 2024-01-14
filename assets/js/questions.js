@@ -24,4 +24,13 @@ let questions = [
     choice4: "all of the above",
     answer: 4,
   },
+  {
+    question:
+      "String values must be enclosed within _____ when being being assigned to variables.",
+    choice1: "commas",
+    choice2: "curly brackets",
+    choice3: "quotes",
+    choice4: "parentheses",
+    answer: 4,
+  },
 ];
