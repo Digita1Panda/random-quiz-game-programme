@@ -1,4 +1,6 @@
 // Declare variables
+const timerCount = document.getElementById("time");
+
 const mainScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start");
 
@@ -15,6 +17,8 @@ let currentQuestion = {};
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
+let timeOnDisplay = 0;
+let timer;
 
 // Pressing start button will will hide the origin main text and populate questions and choices.
 startBtn.addEventListener("click", function () {
@@ -30,14 +34,11 @@ startBtn.addEventListener("click", function () {
 getNewQuestion = () => {
   if (questionsContainer.classList.contains("hide")) {
     questionsContainer.classList.remove("hide");
-    questionsContainer.classList.add("show");
   }
 
   if (availableQuestions.length === 0) {
-    questionsContainer.classList.remove("show");
     questionsContainer.classList.add("hide");
     endScreen.classList.remove("hide");
-    endScreen.classList.add("show");
     return;
   }
 
@@ -67,3 +68,10 @@ choicesText.forEach((choice) => {
     getNewQuestion();
   });
 });
+
+startTimer = () => {
+  timer = setInterval(function () {
+    timeOnDisplay--;
+    console.log(timer);
+  });
+};
