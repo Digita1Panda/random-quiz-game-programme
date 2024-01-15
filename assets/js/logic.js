@@ -73,7 +73,11 @@ choicesText.forEach((choice) => {
     selectedAnswer == currentQuestion.answer
       ? (displayAnswer.innerHTML = `______________________________<br><br>Correct!`)
       : (displayAnswer.innerHTML = `______________________________<br><br>Incorrect!`);
-    getNewQuestion();
+
+    setTimeout(() => {
+      displayAnswer.innerHTML = "";
+      getNewQuestion();
+    }, 1000);
   });
 });
 
