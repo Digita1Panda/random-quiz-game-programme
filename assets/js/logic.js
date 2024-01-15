@@ -23,12 +23,17 @@ let timer;
 // Pressing start button will will hide the origin main text and populate questions and choices.
 startBtn.addEventListener("click", function () {
   mainScreen.style.display = "none";
+  timeOnDisplay = 60;
 
   questionCounter = 0;
   score = 0;
   availableQuestions = [...questions];
 
+  if (timeOnDisplay === 0) {
+    clearInterval(timer);
+  }
   getNewQuestion();
+  startTimer();
 });
 
 getNewQuestion = () => {
@@ -43,7 +48,7 @@ getNewQuestion = () => {
   }
 
   //     return location.assign("/highscores.html");
-  //   }
+
   questionCounter++;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
@@ -62,6 +67,10 @@ choicesText.forEach((choice) => {
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
 
+    if (selectedAnswer !== currentQuestion.answer) {
+      timeOnDisplay -= 15;
+    }
+
     selectedAnswer == currentQuestion.answer
       ? (displayAnswer.innerHTML = `______________________________<br><br>Correct!`)
       : (displayAnswer.innerHTML = `______________________________<br><br>Incorrect!`);
@@ -72,6 +81,10 @@ choicesText.forEach((choice) => {
 startTimer = () => {
   timer = setInterval(function () {
     timeOnDisplay--;
-    console.log(timer);
-  });
+    timerCount.textContent = timeOnDisplay;
+
+    if (timeOnDisplay === 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
 };
