@@ -29,9 +29,6 @@ startBtn.addEventListener("click", function () {
   score = 0;
   availableQuestions = [...questions];
 
-  if (timeOnDisplay === 0) {
-    clearInterval(timer);
-  }
   getNewQuestion();
   startTimer();
 });
@@ -67,8 +64,10 @@ choicesText.forEach((choice) => {
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
 
-    if (selectedAnswer !== currentQuestion.answer) {
+    if (selectedAnswer !== currentQuestion.answer && timeOnDisplay > 15) {
       timeOnDisplay -= 15;
+    } else if (selectedAnswer !== currentQuestion.answer) {
+      timeOnDisplay = 0;
     }
 
     selectedAnswer == currentQuestion.answer
@@ -80,7 +79,7 @@ choicesText.forEach((choice) => {
 
 startTimer = () => {
   timer = setInterval(function () {
-    timeOnDisplay--;
+    if (timeOnDisplay > 0) timeOnDisplay--;
     timerCount.textContent = timeOnDisplay;
 
     if (timeOnDisplay === 0) {
