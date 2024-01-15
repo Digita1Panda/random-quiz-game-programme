@@ -9,8 +9,9 @@ const choicesText = Array.from(document.getElementsByClassName("choice-text"));
 const displayOn = document.getElementsByClassName("hide");
 const displayAnswer = document.getElementById("displayAnswer");
 
+const endScreen = document.getElementById("end-screen");
+
 let currentQuestion = {};
-let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
@@ -18,7 +19,6 @@ let availableQuestions = [];
 // Pressing start button will will hide the origin main text and populate questions and choices.
 startBtn.addEventListener("click", function () {
   mainScreen.style.display = "none";
-  questionsContainer.style.display = "block";
 
   questionCounter = 0;
   score = 0;
@@ -28,9 +28,21 @@ startBtn.addEventListener("click", function () {
 });
 
 getNewQuestion = () => {
-  if (availableQuestions.length === 0) {
-    return location.assign("/highscores.html");
+  if (questionsContainer.classList.contains("hide")) {
+    questionsContainer.classList.remove("hide");
+    questionsContainer.classList.add("show");
   }
+
+  if (availableQuestions.length === 0) {
+    questionsContainer.classList.remove("show");
+    questionsContainer.classList.add("hide");
+    endScreen.classList.remove("hide");
+    endScreen.classList.add("show");
+    return;
+  }
+
+  //     return location.assign("/highscores.html");
+  //   }
   questionCounter++;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
@@ -42,15 +54,10 @@ getNewQuestion = () => {
   });
 
   availableQuestions.splice(questionIndex, 1);
-
-  acceptingAnswers = true;
 };
 
 choicesText.forEach((choice) => {
   choice.addEventListener("click", (e) => {
-    if (!acceptingAnswers) return;
-
-    acceptingAnswers = false;
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
 
