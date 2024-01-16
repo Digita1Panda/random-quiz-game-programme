@@ -154,5 +154,5 @@ submitBtn.addEventListener("click", () => {
   }
 
   // Open up the highscores html when button is clicked
-  location.assign("/highscores.html");
+  location.assign("./highscores.html");
 });
