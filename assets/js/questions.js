@@ -1,3 +1,4 @@
+// Stored questions in this variable
 let questions = [
   {
     question: "Commonly used data types DO NOT include:",
