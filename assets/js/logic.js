@@ -38,7 +38,7 @@ getNewQuestion = () => {
     questionsContainer.classList.remove("hide");
   }
 
-  if (availableQuestions.length === 0) {
+  if (availableQuestions.length === 0 || timeOnDisplay === 0) {
     questionsContainer.classList.add("hide");
     endScreen.classList.remove("hide");
     return;
@@ -64,10 +64,19 @@ choicesText.forEach((choice) => {
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
 
-    if (selectedAnswer !== currentQuestion.answer && timeOnDisplay > 15) {
-      timeOnDisplay -= 15;
-    } else if (selectedAnswer !== currentQuestion.answer) {
-      timeOnDisplay = 0;
+    // if (selectedAnswer != currentQuestion.answer) {
+    //   timeOnDisplay -= 15;
+    //   timeOnDisplay = Math.max(timeOnDisplay, 0);
+    if (selectedAnswer != currentQuestion.answer) {
+      if (timeOnDisplay < 15) {
+        timeOnDisplay = 0;
+        clearInterval(timer);
+        // Go to the end page
+        goToEndPage();
+      } else {
+        timeOnDisplay -= 15;
+        timeOnDisplay = Math.max(timeOnDisplay, 0);
+      }
     }
 
     selectedAnswer == currentQuestion.answer
@@ -75,19 +84,30 @@ choicesText.forEach((choice) => {
       : (displayAnswer.innerHTML = `______________________________<br><br>Incorrect!`);
 
     setTimeout(() => {
-      displayAnswer.innerHTML = "";
+      displayAnswer.textContent = "";
       getNewQuestion();
     }, 1000);
   });
 });
 
 startTimer = () => {
+  timerCount.textContent = timeOnDisplay;
+
   timer = setInterval(function () {
-    if (timeOnDisplay > 0) timeOnDisplay--;
-    timerCount.textContent = timeOnDisplay;
+    if (timeOnDisplay > 0) {
+      timeOnDisplay--;
+      timerCount.textContent = timeOnDisplay;
+    }
 
     if (timeOnDisplay === 0) {
       clearInterval(timer);
     }
   }, 1000);
 };
+
+// Function to go to the end page
+function goToEndPage() {
+  questionsContainer.classList.add("hide");
+  endScreen.classList.remove("hide");
+  // Add code to display the score and save initials
+}
